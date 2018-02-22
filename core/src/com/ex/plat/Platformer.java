@@ -2,32 +2,61 @@ package com.ex.plat;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.ex.plat.handlers.GameStateManager;
+
+import static com.ex.plat.Constants.STEP;
+import static com.ex.plat.Constants.V_HEIGHT;
+import static com.ex.plat.Constants.V_WIDTH;
 
 public class Platformer extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+
+	private SpriteBatch sb;
+	private OrthographicCamera cam;
+	private OrthographicCamera hudCam;
+
+	private GameStateManager gsm;
+
+	private float accum;
+
+	public SpriteBatch getSpriteBatch() {
+		return sb;
+	}
+
+	public OrthographicCamera getCamera() {
+		return cam;
+	}
+
+	public OrthographicCamera getHudCam() {
+		return hudCam;
+	}
+
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+
+		sb = new SpriteBatch();
+		cam = new OrthographicCamera();
+		hudCam = new OrthographicCamera();
+		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
+		hudCam.setToOrtho(false, V_WIDTH, V_HEIGHT);
+		gsm = new GameStateManager(this);
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+
+		accum += Gdx.graphics.getDeltaTime();
+		while (accum >= STEP) {
+			accum -= STEP;
+			gsm.update(STEP);
+			gsm.render();
+		}
+
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+
 	}
 }
