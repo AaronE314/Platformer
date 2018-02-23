@@ -1,14 +1,31 @@
 package com.ex.plat.states;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.ex.plat.handlers.GameStateManager;
+import com.ex.plat.physicsObjects.B2DWorld;
+
+import static com.ex.plat.Constants.PPM;
+import static com.ex.plat.Constants.V_HEIGHT;
+import static com.ex.plat.Constants.V_WIDTH;
 
 public class Play extends GameState{
 
-    private BitmapFont font = new BitmapFont();
+    private B2DWorld world;
 
     public Play(GameStateManager gsm) {
         super(gsm);
+
+        world = new B2DWorld(new Vector2(0, -9.8f), true);
+
     }
 
     @Override
@@ -19,14 +36,16 @@ public class Play extends GameState{
     @Override
     public void update(float dt) {
 
+        world.update(dt);
+
+
     }
 
     @Override
     public void render() {
-        sb.setProjectionMatrix(cam.combined);
-        sb.begin();
-        font.draw(sb, "play state", 100, 100);
-        sb.end();
+
+        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        world.render();
     }
 
     @Override

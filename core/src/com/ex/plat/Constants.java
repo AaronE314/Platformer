@@ -7,4 +7,10 @@ public abstract class Constants {
     public static final int V_HEIGHT = 240;
     public static final int SCALE = 2;
     public static final float STEP = 1 / 60f;
+
+
+    //Box2D
+
+    public static final float PPM = 100;
+
 }
