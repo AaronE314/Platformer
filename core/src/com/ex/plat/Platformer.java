@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ex.plat.handlers.GameStateManager;
+import com.ex.plat.handlers.InputHandler;
+import com.ex.plat.handlers.InputProcessor;
 
 import static com.ex.plat.Constants.STEP;
 import static com.ex.plat.Constants.V_HEIGHT;
@@ -35,6 +37,8 @@ public class Platformer extends ApplicationAdapter {
 	@Override
 	public void create () {
 
+		Gdx.input.setInputProcessor(new InputProcessor());
+
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		hudCam = new OrthographicCamera();
@@ -51,6 +55,7 @@ public class Platformer extends ApplicationAdapter {
 			accum -= STEP;
 			gsm.update(STEP);
 			gsm.render();
+			InputHandler.update();
 		}
 
 	}

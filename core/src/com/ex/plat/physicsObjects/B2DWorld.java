@@ -4,13 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.ex.plat.handlers.PlayerContactListener;
 
 import static com.ex.plat.Constants.PPM;
 import static com.ex.plat.Constants.V_HEIGHT;
@@ -31,13 +27,7 @@ public class B2DWorld {
             b2dr = new Box2DDebugRenderer();
         }
 
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(50 / PPM, 5 / PPM);
-        Body body1 = createBody(160,100, BodyDef.BodyType.StaticBody, shape);
-
-        PolygonShape shape2 = new PolygonShape();
-        shape.setAsBox(5 / PPM, 5 / PPM);
-        Body body2 = createBody(160,200, BodyDef.BodyType.DynamicBody, shape);
+        world.setContactListener(new PlayerContactListener());
 
         //Setup box2D cam
         b2dCam = new OrthographicCamera();
@@ -63,24 +53,4 @@ public class B2DWorld {
         return world;
     }
 
-    /**
-     * Creates and returns a body with a shape fixture
-     * @param x x pos
-     * @param y y pos
-     * @param type body type, Static, Dynamic, or Kinematic
-     * @param shape a shape object to define the shape of the body
-     * @return the created body
-     */
-    public Body createBody(float x, float y, BodyDef.BodyType type, Shape shape) {
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(x / PPM, y / PPM);
-        bdef.type = type;
-        Body body = world.createBody(bdef);
-
-        FixtureDef fdef = new FixtureDef();
-        fdef.shape = shape;
-        body.createFixture(fdef);
-
-        return body;
-    }
 }
