@@ -8,7 +8,7 @@ public class InputHandler {
     public static boolean[] keys;
     public static boolean[] pkeys;
 
-    public static final int NUM_KEYS = 5;
+    public static final int NUM_KEYS = 6;
 
     static {
         keys = new boolean[NUM_KEYS];

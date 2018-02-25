@@ -1,5 +1,7 @@
 package com.ex.plat.entities;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -9,12 +11,15 @@ import com.ex.plat.physicsObjects.B2DWorld;
 
 import static com.ex.plat.Constants.BIT_GROUND;
 import static com.ex.plat.Constants.PPM;
+import static com.ex.plat.Constants.V_HEIGHT;
+import static com.ex.plat.Constants.V_WIDTH;
 
-public class Entity {
+public abstract class Entity {
 
     protected B2DWorld world;
     protected Body body;
     protected Vector2 pos;
+    protected Sprite sprite;
     protected float width;
     protected float height;
 
@@ -40,5 +45,20 @@ public class Entity {
 
         this.body.createFixture(fdef);
     }
+
+
+    public void render(SpriteBatch sb) {
+        float x = body.getPosition().x * PPM;
+        float y = body.getPosition().y * PPM;
+
+        sprite.setPosition(V_WIDTH, V_HEIGHT);
+        sprite.draw(sb);
+
+    }
+
+    public void setPos(float x, float y) {
+        body.setTransform(x * PPM, y * PPM, 0);
+    }
+
 
 }

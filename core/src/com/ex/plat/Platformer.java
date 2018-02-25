@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ex.plat.handlers.GameStateManager;
 import com.ex.plat.handlers.InputHandler;
 import com.ex.plat.handlers.InputProcessor;
+import com.ex.plat.handlers.ResourceManager;
 
 import static com.ex.plat.Constants.STEP;
 import static com.ex.plat.Constants.V_HEIGHT;
@@ -15,23 +16,14 @@ import static com.ex.plat.Constants.V_WIDTH;
 public class Platformer extends ApplicationAdapter {
 
 	private SpriteBatch sb;
-	private OrthographicCamera cam;
-	private OrthographicCamera hudCam;
-
 	private GameStateManager gsm;
 
 	private float accum;
 
+	public static ResourceManager res;
+
 	public SpriteBatch getSpriteBatch() {
 		return sb;
-	}
-
-	public OrthographicCamera getCamera() {
-		return cam;
-	}
-
-	public OrthographicCamera getHudCam() {
-		return hudCam;
 	}
 
 	@Override
@@ -39,11 +31,10 @@ public class Platformer extends ApplicationAdapter {
 
 		Gdx.input.setInputProcessor(new InputProcessor());
 
+
+		res = new ResourceManager();
+
 		sb = new SpriteBatch();
-		cam = new OrthographicCamera();
-		hudCam = new OrthographicCamera();
-		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
-		hudCam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 		gsm = new GameStateManager(this);
 	}
 
@@ -54,7 +45,7 @@ public class Platformer extends ApplicationAdapter {
 		while (accum >= STEP) {
 			accum -= STEP;
 			gsm.update(STEP);
-			gsm.render();
+			gsm.render(sb);
 			InputHandler.update();
 		}
 

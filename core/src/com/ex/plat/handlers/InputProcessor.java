@@ -6,7 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 public class InputProcessor extends InputAdapter {
 
     public enum KEYS {
-        UP(Keys.W, 0), DOWN(Keys.S, 1), LEFT(Keys.A, 2), RIGHT(Keys.D, 3), JUMP(Keys.SPACE, 4);
+        UP(Keys.W, 0), DOWN(Keys.S, 1), LEFT(Keys.A, 2), RIGHT(Keys.D, 3), JUMP(Keys.SPACE, 4), SPRINT(Keys.SHIFT_LEFT, 5);
 
         public int code;
         public int index;

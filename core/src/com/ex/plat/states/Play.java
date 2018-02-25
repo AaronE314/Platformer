@@ -3,6 +3,7 @@ package com.ex.plat.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -16,6 +17,7 @@ import com.ex.plat.handlers.GameStateManager;
 import com.ex.plat.handlers.InputHandler;
 import com.ex.plat.handlers.InputProcessor;
 import com.ex.plat.handlers.InputProcessor.KEYS;
+import com.ex.plat.handlers.PlayerContactListener;
 import com.ex.plat.physicsObjects.B2DWorld;
 
 import static com.ex.plat.Constants.PPM;
@@ -32,8 +34,10 @@ public class Play extends GameState{
         super(gsm);
 
         world = new B2DWorld(new Vector2(0, -9.8f), true);
-        player = new Player(world, new Vector2(160, 200));
-        platform = new Platform(world, new Vector2(160,100));
+        player = new Player(world, new Vector2(V_WIDTH/2, V_HEIGHT/2));
+        platform = new Platform(world, new Vector2(V_WIDTH/2,100));
+
+        world.getWorld().setContactListener(new PlayerContactListener(player));
 
     }
 
@@ -47,22 +51,38 @@ public class Play extends GameState{
     @Override
     public void update(float dt) {
 
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         handleInput();
 
+        if (player.getPosition().y > V_HEIGHT /1.5f) {
+            cam.position.set(player.getPosition().x, player.getPosition().y-V_HEIGHT/6, 0);
+        } else {
+            cam.position.set(player.getPosition().x, V_HEIGHT/2, 0);
+        }
+
+        if (player.getPosition().y < -10) {
+            player.setPos(V_WIDTH/2, V_HEIGHT/2);
+        }
+
+        cam.update();
+
         world.update(dt);
-
-
     }
 
     @Override
-    public void render() {
+    public void render(SpriteBatch sb) {
 
-        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        world.render();
+        sb.setProjectionMatrix(cam.combined);
+        sb.begin();
+        world.render(cam.combined.cpy());
+        player.render(sb);
+        sb.end();
     }
 
     @Override
     public void dispose() {
 
     }
+
 }

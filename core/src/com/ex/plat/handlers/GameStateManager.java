@@ -1,5 +1,6 @@
 package com.ex.plat.handlers;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ex.plat.Platformer;
 import com.ex.plat.states.GameState;
 import com.ex.plat.states.Play;
@@ -24,8 +25,8 @@ public class GameStateManager {
         gameStates.peek().update(dt);
     }
 
-    public void render() {
-        gameStates.peek().render();
+    public void render(SpriteBatch sb) {
+        gameStates.peek().render(sb);
     }
 
     public Platformer game() {

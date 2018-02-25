@@ -3,10 +3,11 @@ package com.ex.plat.physicsObjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.ex.plat.handlers.PlayerContactListener;
+import com.ex.plat.camera.OrthoCamera;
 
 import static com.ex.plat.Constants.PPM;
 import static com.ex.plat.Constants.V_HEIGHT;
@@ -27,8 +28,6 @@ public class B2DWorld {
             b2dr = new Box2DDebugRenderer();
         }
 
-        world.setContactListener(new PlayerContactListener());
-
         //Setup box2D cam
         b2dCam = new OrthographicCamera();
         b2dCam.setToOrtho(false, V_WIDTH  / PPM, V_HEIGHT  / PPM);
@@ -41,16 +40,16 @@ public class B2DWorld {
 
     }
 
-    public void render() {
+    public void render(Matrix4 camCpy) {
 
-        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (debug) {
-            b2dr.render(world, b2dCam.combined);
+            b2dr.render(world, camCpy.scl(PPM));
         }
     }
 
     public World getWorld() {
         return world;
     }
+
 
 }

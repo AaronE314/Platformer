@@ -9,11 +9,12 @@ import com.ex.plat.physicsObjects.B2DWorld;
 
 import static com.ex.plat.Constants.BIT_GROUND;
 import static com.ex.plat.Constants.PPM;
+import static com.ex.plat.Constants.V_WIDTH;
 
 public class Platform extends Entity{
 
     public Platform(B2DWorld world, Vector2 pos) {
-        super(world, pos, 50, 5);
+        super(world, pos, V_WIDTH, 5);
     }
 
     @Override

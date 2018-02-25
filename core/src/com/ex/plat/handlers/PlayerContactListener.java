@@ -6,42 +6,28 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.ex.plat.entities.Player;
 
 
-//FIXME: Make more specific to player
 public class PlayerContactListener implements ContactListener {
 
-    private boolean playerOnGround = false;
+    private Player player;
+
+    public PlayerContactListener(Player player) {
+        this.player = player;
+    }
 
     @Override
     public void beginContact(Contact contact) {
 
-        Fixture fa = contact.getFixtureA();
-        Fixture fb = contact.getFixtureB();
-
-        if (fa.getUserData() != null && fa.getUserData().equals("Foot")) {
-            playerOnGround = true;
-        }
-
-        if (fb.getUserData() != null && fb.getUserData().equals("Foot")) {
-            playerOnGround = true;
-        }
+        player.beginContact(contact);
 
     }
 
     @Override
     public void endContact(Contact contact) {
 
-        Fixture fa = contact.getFixtureA();
-        Fixture fb = contact.getFixtureB();
-
-        if (fa.getUserData() != null && fa.getUserData().equals("Foot")) {
-            playerOnGround = false;
-        }
-
-        if (fb.getUserData() != null && fb.getUserData().equals("Foot")) {
-            playerOnGround = false;
-        }
+        player.endContact(contact);
     }
 
     @Override
@@ -54,7 +40,4 @@ public class PlayerContactListener implements ContactListener {
 
     }
 
-    public boolean isPlayerOnGround() {
-        return playerOnGround;
-    }
 }
