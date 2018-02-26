@@ -56,9 +56,9 @@ public class Play extends GameState{
         handleInput();
 
         if (player.getPosition().y > V_HEIGHT /1.5f) {
-            cam.position.set(player.getPosition().x, player.getPosition().y-V_HEIGHT/6, 0);
+            cam.position.set(player.getPosition().x * PPM, player.getPosition().y * PPM-V_HEIGHT/6, 0);
         } else {
-            cam.position.set(player.getPosition().x, V_HEIGHT/2, 0);
+            cam.position.set(player.getPosition().x * PPM, V_HEIGHT/2, 0);
         }
 
         if (player.getPosition().y < -10) {
@@ -66,7 +66,7 @@ public class Play extends GameState{
         }
 
         cam.update();
-
+        player.update(dt);
         world.update(dt);
     }
 
@@ -74,10 +74,8 @@ public class Play extends GameState{
     public void render(SpriteBatch sb) {
 
         sb.setProjectionMatrix(cam.combined);
-        sb.begin();
         world.render(cam.combined.cpy());
         player.render(sb);
-        sb.end();
     }
 
     @Override

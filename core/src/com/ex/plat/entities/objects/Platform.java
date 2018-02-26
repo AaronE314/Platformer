@@ -20,7 +20,7 @@ public class Platform extends Entity{
     @Override
     protected void createEntity() {
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(this.width / PPM, this.height / PPM);
+        shape.setAsBox(this.bodyW / PPM, this.bodyH / PPM);
         BodyDef bdef = new BodyDef();
         bdef.position.set(this.pos.x / PPM, this.pos.y / PPM);
         bdef.type = BodyDef.BodyType.StaticBody;
