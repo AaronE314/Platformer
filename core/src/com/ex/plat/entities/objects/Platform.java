@@ -31,5 +31,7 @@ public class Platform extends Entity{
         fdef.filter.categoryBits = BIT_GROUND;
 
         this.body.createFixture(fdef);
+
+        shape.dispose();
     }
 }

@@ -1,7 +1,6 @@
 package com.ex.plat.entities;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -64,6 +63,8 @@ public abstract class Entity {
         fdef.filter.categoryBits = BIT_GROUND;
 
         this.body.createFixture(fdef);
+
+        shape.dispose();
     }
 
     public void setAnimation(TextureRegion[] reg, float delay) {

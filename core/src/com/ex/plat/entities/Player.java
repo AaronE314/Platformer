@@ -1,23 +1,16 @@
 package com.ex.plat.entities;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.ex.plat.Platformer;
 import com.ex.plat.handlers.InputHandler;
 import com.ex.plat.physicsObjects.B2DWorld;
-import com.ex.plat.states.GameState;
 
 import static com.ex.plat.Constants.BIT_PLAYER;
 import static com.ex.plat.Constants.PPM;
-import static com.ex.plat.Constants.V_HEIGHT;
-import static com.ex.plat.Constants.V_WIDTH;
 import static com.ex.plat.handlers.InputProcessor.*;
 
 public class Player extends Entity {
@@ -44,7 +37,6 @@ public class Player extends Entity {
 
     @Override
     protected void createEntity() {
-        System.out.println(width / PPM + " " + height / PPM);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(this.bodyW / PPM, this.bodyH / PPM);
         BodyDef bdef = new BodyDef();
@@ -67,6 +59,8 @@ public class Player extends Entity {
         fdef.filter.categoryBits = BIT_PLAYER;
         fdef.isSensor = true;
         this.body.createFixture(fdef).setUserData("Foot");
+
+        shape.dispose();
 
     }
 
