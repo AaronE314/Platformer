@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="240" height="20" tilewidth="70" tileheight="70" infinite="0" nextobjectid="59">
+ <tileset firstgid="1" source="Backgrounds.tsx"/>
+ <tileset firstgid="10" source="tiles.tsx"/>
+ <tileset firstgid="166" source="items.tsx"/>
+ <layer name="Background" width="240" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztw8EJAAAMA6Ej+w/dLfpScNVUVVVVVVVVVVVVVVVVVVVVVVX16QEocSWB
+  </data>
+ </layer>
+ <layer name="Graphics" width="240" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt1rENhDAQRUFqoSQ6oQBSQoqgUghMhtFdwK6xZqQX+xuExDAAAAAAAAAAAAAAAADkGc+mm8bMUQDAX5bS/HKXtXR5+9zajifRm9RXUbbSHlBNxNm/7MjcpL6KEPntPt2pxWeb/f717SL+Z6PvVNPKjsxNUuvVtLIjc5P66gBX2W68
+  </data>
+ </layer>
+ <layer name="Graphics2" width="240" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt1sEJwkAQhtF04llyE2zCo5XERiwptYkHIaxBomZZf/MezGVCYC4fbNcBAAAAW7ZvfQDwMf1CLv1CLv1CLv1CLv1CLv1CLv1CLv1CLv3Cs7GYu76Y3czusZ9+q0m/vOPw5f+nVa5gLcOCgdbOrQ/4UccFAzW9ehNcJ1MaZ3Zbo19qu7Q+4I/pF3Lpl9puKToWLw==
+  </data>
+ </layer>
+ <objectgroup name="Ground">
+  <properties>
+   <property name="box2d" value="true"/>
+  </properties>
+  <object id="37" x="0" y="1260" width="1750" height="70"/>
+  <object id="38" x="1750" y="1190" width="70" height="70"/>
+  <object id="39" x="1820" y="1120" width="70" height="70"/>
+  <object id="40" x="1890" y="1050" width="1820" height="70"/>
+  <object id="41" x="4130" y="1050" width="1960" height="70"/>
+  <object id="42" x="6720" y="1050" width="10080" height="70"/>
+ </objectgroup>
+ <objectgroup name="Bricks">
+  <object id="45" x="490" y="910" width="70" height="70"/>
+  <object id="46" x="560" y="910" width="70" height="70"/>
+  <object id="48" x="630" y="910" width="70" height="70"/>
+  <object id="49" x="700" y="910" width="70" height="70"/>
+  <object id="50" x="770" y="910" width="70" height="70"/>
+  <object id="51" x="840" y="910" width="70" height="70"/>
+  <object id="52" x="910" y="910" width="70" height="70"/>
+ </objectgroup>
+ <objectgroup name="Water">
+  <object id="57" x="6090" y="1076" width="630" height="324"/>
+  <object id="58" x="6550" y="2116"/>
+ </objectgroup>
+</map>
