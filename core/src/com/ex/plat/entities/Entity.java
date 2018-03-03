@@ -93,7 +93,7 @@ public abstract class Entity {
     }
 
     public void setPos(float x, float y) {
-        body.setTransform(x * PPM, y * PPM, 0);
+        body.setTransform(x / PPM, y / PPM, 0);
     }
 
     public Vector2 getPosition() {
