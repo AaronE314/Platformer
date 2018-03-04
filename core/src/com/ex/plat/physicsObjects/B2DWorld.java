@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 import static com.ex.plat.Constants.PPM;
+import static com.ex.plat.Constants.STEP;
 
 public class B2DWorld {
 
@@ -23,9 +24,9 @@ public class B2DWorld {
 
     }
 
-    public void update(float dt) {
+    public void update() {
 
-        world.step(dt, 6, 2);
+        world.step(STEP, 6, 2);
 
     }
 
@@ -38,6 +39,14 @@ public class B2DWorld {
 
     public World getWorld() {
         return world;
+    }
+
+
+    public void dispose() {
+        world.dispose();
+        if (debug){
+            b2dr.dispose();
+        }
     }
 
 

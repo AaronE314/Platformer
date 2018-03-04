@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.ex.plat.entities.Entity;
 import com.ex.plat.physicsObjects.B2DWorld;
 
-import static com.ex.plat.Constants.BIT_GROUND;
+import static com.ex.plat.Constants.GROUND_BIT;
 import static com.ex.plat.Constants.PPM;
 import static com.ex.plat.Constants.V_WIDTH;
 
@@ -28,7 +28,7 @@ public class Platform extends Entity{
 
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;
-        fdef.filter.categoryBits = BIT_GROUND;
+        fdef.filter.categoryBits = GROUND_BIT;
 
         this.body.createFixture(fdef);
 

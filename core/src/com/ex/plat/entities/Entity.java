@@ -12,7 +12,7 @@ import com.ex.plat.Platformer;
 import com.ex.plat.handlers.Animation;
 import com.ex.plat.physicsObjects.B2DWorld;
 
-import static com.ex.plat.Constants.BIT_GROUND;
+import static com.ex.plat.Constants.GROUND_BIT;
 import static com.ex.plat.Constants.PPM;
 
 public abstract class Entity {
@@ -60,7 +60,7 @@ public abstract class Entity {
 
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;
-        fdef.filter.categoryBits = BIT_GROUND;
+        fdef.filter.categoryBits = GROUND_BIT;
 
         this.body.createFixture(fdef);
 
@@ -92,8 +92,8 @@ public abstract class Entity {
 
     }
 
-    public void setPos(float x, float y) {
-        body.setTransform(x / PPM, y / PPM, 0);
+    public void setPos(Vector2 pos) {
+        body.setTransform(pos.x / PPM, pos.y / PPM, 0);
     }
 
     public Vector2 getPosition() {

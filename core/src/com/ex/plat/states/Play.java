@@ -2,13 +2,11 @@ package com.ex.plat.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.ex.plat.Platformer;
 import com.ex.plat.entities.Player;
-import com.ex.plat.entities.objects.Platform;
-import com.ex.plat.handlers.GameStateManager;
-import com.ex.plat.handlers.PlayerContactListener;
+import com.ex.plat.handlers.LevelHandler;
+import com.ex.plat.handlers.WorldContactListener;
 import com.ex.plat.physicsObjects.B2DWorld;
 import com.ex.plat.scenes.HUD;
 
@@ -20,19 +18,22 @@ public class Play extends GameState{
 
     private B2DWorld world;
     private Player player;
-    private Platform platform;
     private HUD hud;
+    private LevelHandler levelHandler;
 
     public Play(Platformer game) {
         super(game);
 
         world = new B2DWorld(new Vector2(0, -9.8f), true);
-        player = new Player(world, new Vector2(V_WIDTH/2, V_HEIGHT/2));
-        platform = new Platform(world, new Vector2(V_WIDTH/2,100));
-
-        world.getWorld().setContactListener(new PlayerContactListener(player));
+        world.getWorld().setContactListener(new WorldContactListener());
 
         hud = new HUD(game.getSpriteBatch());
+
+        levelHandler = new LevelHandler(world.getWorld());
+
+        levelHandler.setMap("level1");
+
+        player = new Player(world, levelHandler.getPlayerStart());
 
     }
 
@@ -50,26 +51,20 @@ public class Play extends GameState{
 
         handleInput();
 
-        if (player.getPosition().y > V_HEIGHT /1.5f) {
-            cam.position.set(player.getPosition().x * PPM, player.getPosition().y * PPM-V_HEIGHT/6, 0);
+        if (player.getBody().getPosition().x * PPM > 200) {
+            cam.position.set(player.getPosition().x * PPM, V_HEIGHT / 2, 0);
         } else {
-            cam.position.set(player.getPosition().x * PPM, V_HEIGHT/2, 0);
+            cam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
         }
 
         if (player.getPosition().y < -10) {
-            player.setPos(V_WIDTH/2, V_HEIGHT/2);
+            player.setPos(levelHandler.getPlayerStart());
         }
 
         cam.update();
         player.update(dt);
-        world.update(dt);
+        world.update();
     }
-
-//    @Override
-//    public void render(SpriteBatch sb) {
-//
-//
-//    }
 
     @Override
     public void show() {
@@ -80,6 +75,7 @@ public class Play extends GameState{
     public void render(float delta) {
         update(delta);
 
+        levelHandler.render(cam);
         game.getSpriteBatch().setProjectionMatrix(cam.combined);
         world.render(cam.combined.cpy());
         player.render(game.getSpriteBatch());
@@ -105,7 +101,8 @@ public class Play extends GameState{
 
     @Override
     public void dispose() {
-
+        levelHandler.dispose();
+        world.dispose();
+        hud.dispose();
     }
-
 }
