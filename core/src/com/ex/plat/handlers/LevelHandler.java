@@ -124,7 +124,7 @@ public class LevelHandler {
 
         }
 
-        Rectangle playerRect = ((RectangleMapObject) map.getLayers().get(8).getObjects().get(0)).getRectangle();
+        Rectangle playerRect = (map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class).get(0)).getRectangle();
         playerStart = new Vector2(playerRect.getX() / 2, playerRect.getY() / 2);
 
         shape.dispose();

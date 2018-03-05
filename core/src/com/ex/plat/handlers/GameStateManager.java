@@ -3,7 +3,6 @@ package com.ex.plat.handlers;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.ex.plat.Platformer;
 import com.ex.plat.states.GameState;
-import com.ex.plat.states.Play;
 
 import java.util.Stack;
 

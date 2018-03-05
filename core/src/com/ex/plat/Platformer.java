@@ -1,9 +1,7 @@
 package com.ex.plat;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ex.plat.handlers.InputProcessor;
 import com.ex.plat.handlers.ResourceManager;
 import com.ex.plat.states.Play;
 

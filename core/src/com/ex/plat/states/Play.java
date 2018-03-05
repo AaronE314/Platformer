@@ -12,7 +12,6 @@ import com.ex.plat.scenes.HUD;
 
 import static com.ex.plat.Constants.PPM;
 import static com.ex.plat.Constants.V_HEIGHT;
-import static com.ex.plat.Constants.V_WIDTH;
 
 public class Play extends GameState{
 
@@ -57,7 +56,7 @@ public class Play extends GameState{
             cam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
         }
 
-        if (player.getPosition().y < -10) {
+        if (player.getPosition().y < -10/PPM) {
             player.setPos(levelHandler.getPlayerStart());
         }
 
