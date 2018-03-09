@@ -2,6 +2,7 @@ package com.ex.plat.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.ex.plat.Platformer;
 import com.ex.plat.entities.Player;
@@ -20,8 +21,12 @@ public class Play extends GameState{
     private HUD hud;
     private LevelHandler levelHandler;
 
+    private TextureAtlas atlas;
+
     public Play(Platformer game) {
         super(game);
+
+        atlas = new TextureAtlas("Mario_and_Enemies.pack");
 
         world = new B2DWorld(new Vector2(0, -9.8f), true);
         world.getWorld().setContactListener(new WorldContactListener());
@@ -32,7 +37,7 @@ public class Play extends GameState{
 
         levelHandler.setMap("level1");
 
-        player = new Player(world, levelHandler.getPlayerStart());
+        player = new Player(this, levelHandler.getPlayerStart());
 
     }
 
@@ -51,17 +56,17 @@ public class Play extends GameState{
         handleInput();
 
         if (player.getBody().getPosition().x * PPM > 200) {
-            cam.position.set(player.getPosition().x * PPM, V_HEIGHT / 2, 0);
+            cam.position.set(player.getPosition().x * PPM, player.getPosition().y * PPM + V_HEIGHT / 3, 0);
         } else {
             cam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
         }
 
         if (player.getPosition().y < -10/PPM) {
-            player.setPos(levelHandler.getPlayerStart());
+            player.die();
         }
 
-        cam.update();
         player.update(dt);
+        cam.update();
         world.update();
     }
 
@@ -77,7 +82,10 @@ public class Play extends GameState{
         levelHandler.render(cam);
         game.getSpriteBatch().setProjectionMatrix(cam.combined);
         world.render(cam.combined.cpy());
-        player.render(game.getSpriteBatch());
+
+        game.getSpriteBatch().begin();
+        player.draw(game.getSpriteBatch());
+        game.getSpriteBatch().end();
 
         hud.render(game.getSpriteBatch());
 
@@ -103,5 +111,13 @@ public class Play extends GameState{
         levelHandler.dispose();
         world.dispose();
         hud.dispose();
+    }
+
+    public TextureAtlas getAtlas() {
+        return atlas;
+    }
+
+    public B2DWorld getWorld() {
+        return world;
     }
 }

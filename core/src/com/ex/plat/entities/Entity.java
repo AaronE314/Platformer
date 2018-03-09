@@ -1,7 +1,9 @@
 package com.ex.plat.entities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -15,82 +17,40 @@ import com.ex.plat.physicsObjects.B2DWorld;
 import static com.ex.plat.Constants.GROUND_BIT;
 import static com.ex.plat.Constants.PPM;
 
-public abstract class Entity {
+public abstract class Entity extends Sprite {
 
     protected B2DWorld world;
     protected Body body;
     protected Vector2 pos;
+    protected Vector2 startingPos;
     protected Animation animation;
-    protected float width;
-    protected float height;
+    //protected float width;
+    //protected float height;
     protected float bodyH;
     protected float bodyW;
     protected boolean hasImage;
 
-    public Entity(B2DWorld world, Vector2 pos, float w, float h) {
+    public Entity(B2DWorld world, TextureAtlas.AtlasRegion region, Vector2 pos, float w, float h) {
+        super(region);
         this.world = world;
         this.pos = pos;
-        this.width = w;
-        this.height = h;
-        this.bodyH = this.height;
-        this.bodyW = this.width;
-        this.hasImage = false;
-        animation = new Animation();
+        this.startingPos = pos;
+        //this.width = w;
+        //this.height = h;
+        this.bodyH = w;
+        this.bodyW = h;
+        //this.hasImage = false;
         createEntity();
     }
 
-    public Entity(B2DWorld world, Vector2 pos, String path, String name) {
-        this.world = world;
-        this.pos = pos;
-        this.hasImage = true;
-        this.bodyH = this.height/2;
-        this.bodyW = this.width/2;
-        animation = new Animation();
-        this.setTexture(path, name);
-        createEntity();
-    }
+//    public void setAnimation(TextureRegion[] reg, float delay) {
+//        animation.setFrames(reg, delay);
+//        width = reg[0].getRegionWidth();
+//        height = reg[0].getRegionHeight();
+//    }
 
-    protected void createEntity() {
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(this.bodyW / PPM, this.bodyH / PPM);
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(this.pos.x / PPM, this.pos.y / PPM);
-        bdef.type = BodyDef.BodyType.StaticBody;
-        this.body = world.getWorld().createBody(bdef);
-
-        FixtureDef fdef = new FixtureDef();
-        fdef.shape = shape;
-        fdef.filter.categoryBits = GROUND_BIT;
-
-        this.body.createFixture(fdef);
-
-        shape.dispose();
-    }
-
-    public void setAnimation(TextureRegion[] reg, float delay) {
-        animation.setFrames(reg, delay);
-        width = reg[0].getRegionWidth();
-        height = reg[0].getRegionHeight();
-    }
-
-    public void update(float dt) {
-        if (this.hasImage) {
-            animation.update(dt);
-        }
-    }
-
-    public void render(SpriteBatch sb) {
-
-        if (this.hasImage) {
-            sb.begin();
-
-            sb.draw(animation.getFrame(), body.getPosition().x * PPM - width / 2,
-                    body.getPosition().y * PPM - height / 2);
-
-            sb.end();
-        }
-
-    }
+    public abstract void update(float dt);
+    protected abstract void createEntity();
 
     public void setPos(Vector2 pos) {
         body.setTransform(pos.x / PPM, pos.y / PPM, 0);
@@ -102,18 +62,18 @@ public abstract class Entity {
     public Body getBody() {
         return body;
     }
-    public float getWidth() {
-        return width;
-    }
-    public float getHeight() {
-        return height;
-    }
+//    public float getWidth() {
+//        return width;
+//    }
+//    public float getHeight() {
+//        return height;
+//    }
 
-    protected void setTexture(String path, String name) {
-        Platformer.res.loadTexture(path, name);
-        Texture tex = Platformer.res.getTexture(name);
-        TextureRegion[] sprites = TextureRegion.split(tex, 256, 256)[0];
-        setAnimation(sprites, 1/12f);
-    }
+//    protected void setTexture(String path, String name) {
+//        Platformer.res.loadTexture(path, name);
+//        Texture tex = Platformer.res.getTexture(name);
+//        TextureRegion[] sprites = TextureRegion.split(tex, 256, 256)[0];
+//        setAnimation(sprites, 1/12f);
+//    }
 
 }

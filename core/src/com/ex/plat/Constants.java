@@ -19,18 +19,20 @@ public abstract class Constants {
     public static final short GROUND_BIT = 1;
     public static final short BIT_PLAYER = 2;
     public static final short BRICK_BIT = 4;
-    public static final short COIN_BIT = 8;
-    public static final short OBJECT_BIT = 16;
+    public static final short SAW_BIT = 8;
+    public static final short SPIKE_BIT = 16;
     public static final short FOOT_BIT = 32;
+    public static final short RIGHT_WALL_BIT = 64;
+    public static final short LEFT_WALL_BIT = 128;
 
     public static final short getBits(int i) {
         switch (i) {
             case 2:
                 return GROUND_BIT;
             case 3:
-                return OBJECT_BIT;
+                return SPIKE_BIT;
             case 4:
-                return COIN_BIT;
+                return SAW_BIT;
             case 5:
                 return BRICK_BIT;
             default:

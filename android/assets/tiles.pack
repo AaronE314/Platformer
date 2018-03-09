@@ -1,0 +1,159 @@
+
+tiles.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+saw
+  rotate: false
+  xy: 0, 16
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 0, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+spike
+  rotate: false
+  xy: 16, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+spike2
+  rotate: false
+  xy: 32, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+spike3
+  rotate: false
+  xy: 48, 48
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+spike4
+  rotate: false
+  xy: 48, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_all
+  rotate: false
+  xy: 64, 48
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_bottom
+  rotate: false
+  xy: 48, 16
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_bottom_left
+  rotate: false
+  xy: 48, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_bottom_only
+  rotate: false
+  xy: 64, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_bottom_right
+  rotate: false
+  xy: 80, 48
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_bottom_top
+  rotate: false
+  xy: 64, 16
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_left
+  rotate: false
+  xy: 64, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_left_only
+  rotate: false
+  xy: 80, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_left_right
+  rotate: false
+  xy: 96, 48
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_none
+  rotate: false
+  xy: 112, 48
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_right
+  rotate: false
+  xy: 80, 16
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_right_only
+  rotate: false
+  xy: 80, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_top
+  rotate: false
+  xy: 96, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_top_left
+  rotate: false
+  xy: 112, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_top_only
+  rotate: false
+  xy: 96, 16
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tile_top_right
+  rotate: false
+  xy: 96, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1

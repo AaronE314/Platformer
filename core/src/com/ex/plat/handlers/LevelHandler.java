@@ -4,14 +4,19 @@ package com.ex.plat.handlers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.CircleMapObject;
+import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -95,12 +100,13 @@ public class LevelHandler {
 
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
+        CircleShape shape1 = new CircleShape();
         FixtureDef fdef = new FixtureDef();
         Array<Body> bodies = new Array<Body>();
         short bits;
 
         //generate based on layers
-        for (int i = 2; i<=5; i++) {
+        for (int i = 2; i<=3; i++) {
             bodies.clear();
             bits = getBits(i);
             for (MapObject object : map.getLayers().get(i).getObjects().getByType(RectangleMapObject.class)) {
@@ -124,7 +130,29 @@ public class LevelHandler {
 
         }
 
-        Rectangle playerRect = (map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class).get(0)).getRectangle();
+        bodies.clear();
+        bits = getBits(4);
+        for (MapObject object : map.getLayers().get(4).getObjects().getByType(EllipseMapObject.class)) {
+
+            Ellipse circle = ((EllipseMapObject) object).getEllipse();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((circle.x + circle.width/2) / PPM, (circle.y + circle.height/2) / PPM);
+
+            Body body = world.createBody(bdef);
+
+            //shape.setAsBox(rect.getWidth() / 2 / PPM, rect.getHeight() / 2 / PPM);
+            shape1.setRadius(circle.height / 2 / PPM);
+            fdef.shape = shape1;
+            fdef.filter.categoryBits = bits;
+            body.createFixture(fdef);
+
+            bodies.add(body);
+        }
+
+        mapBodies.put(map.getLayers().get(4).getName(), bodies);
+
+        Rectangle playerRect = (map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class).get(0)).getRectangle();
         playerStart = new Vector2(playerRect.getX() / 2, playerRect.getY() / 2);
 
         shape.dispose();

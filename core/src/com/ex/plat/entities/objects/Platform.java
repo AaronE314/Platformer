@@ -14,7 +14,7 @@ import static com.ex.plat.Constants.V_WIDTH;
 public class Platform extends Entity{
 
     public Platform(B2DWorld world, Vector2 pos) {
-        super(world, pos, V_WIDTH, 5);
+        super(world,null, pos, V_WIDTH, 5);
     }
 
     @Override
@@ -33,5 +33,10 @@ public class Platform extends Entity{
         this.body.createFixture(fdef);
 
         shape.dispose();
+    }
+
+    @Override
+    public void update(float dt) {
+
     }
 }
